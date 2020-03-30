@@ -1,3 +1,18 @@
+# Cài đặt docker-compose(require docker and docker-compose)
++ B1: cd /path/to/project && **docker-compose build**: Build docker
++ B2: **docker-compose up --scale minion=<number>**: Start docker container với số lượng minion = **number**(VD: ... --scale minion=5)
++ B3: connect vào master container = câu lệnh **docker exec -it master bash**(có thể bị trùng name) hoặc sử dụng câu lệnh **docker ps**
+    ```bash
+    F:\nodejs\product
+    λ docker ps
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+    239c6626e659        salt_minion         "salt-minion -l debug"   8 hours ago         Up 2 seconds                            salt_minion_2
+    c3955501258f        salt_minion         "salt-minion -l debug"   8 hours ago         Up 2 seconds                            salt_minion_1
+    4de21f52be2d        salt_master         "/usr/sbin/init"         8 hours ago         Up 2 seconds                            master
+    ```
+    + sử dụng **docker exec -it 4de21f52be2d bash** để truy cập vào master container.
++ B4: Sau khi truy cập vào master container sử dụng câu lệnh **service salt-master restart** để start salt-master service
+
 # Các câu lệnh thường sử dụng trong:
 + **service salt-master start/restart/stop/status**: Start/stop salt-master service
 + **salt "minion_name" test.ping**: Kiểm tra trạng thái của các minion(sử dụng * nếu muốn xem tất cả)
