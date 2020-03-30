@@ -1,0 +1,10 @@
+FROM ubuntu:16.04
+
+MAINTAINER luonglit <pvluong0001@gmail.com>
+
+RUN apt-get update -y && \
+    apt-get install salt-minion -y
+
+RUN sed -i "s|#master: salt|master: master|g" /etc/salt/minion
+
+ENTRYPOINT ["salt-minion", "-l", "debug"]

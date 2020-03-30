@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  master:
+    container_name: master
+    build:
+      context: .
+      dockerfile: Dockerfile
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+  minion:
+    build:
+      context: .
+      dockerfile: Dockerfile.minion
+    depends_on:
+      - master
